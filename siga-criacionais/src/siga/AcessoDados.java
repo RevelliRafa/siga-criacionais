@@ -65,4 +65,8 @@ public class AcessoDados {
 
         conexao.abrir();
         comando.executar("SELECT * FROM aluno");
+        // SOLUÇÃO PROBLEMA 2 (Builder): delega a construção da consulta para o builder fluente
+    public ConsultaBuilder criarConsulta(String tabela) {
+        return new ConsultaBuilder(tabela);
+    }
     }
