@@ -29,5 +29,35 @@ public class Main {
         System.out.println("fornecedor (Abstract Factory resolve); o método de consulta tem");
         System.out.println("parâmetros demais (Builder resolve); e não há controle de");
         System.out.println("instância única do acesso ao banco (Singleton resolve).");
+        package siga;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("=== SIGA — Padrões Criacionais ===");
+
+        // 1. Singleton
+        AcessoDados acesso = AcessoDados.getInstancia();
+
+        // 2. Abstract Factory
+        System.out.println("\n--- Teste Abstract Factory (MySQL) ---");
+        FabricaBanco fabricaMySQL = new FabricaMySQL();
+        acesso.conectar(fabricaMySQL);
+
+        System.out.println("\n--- Teste Abstract Factory (PostgreSQL) ---");
+        FabricaBanco fabricaPostgres = new FabricaPostgreSQL();
+        acesso.conectar(fabricaPostgres);
+
+        // 3. Builder
+        System.out.println("\n--- Teste ConsultaBuilder ---");
+        String sql = acesso.criarConsulta("aluno")
+                           .comFiltro("idade >= 18")
+                           .somenteAtivos(true)
+                           .comOrdenacao("nome ASC")
+                           .comLimite(10)
+                           .construir();
+
+        System.out.println("Consulta gerada: " + sql);
+    }
+}
     }
 }

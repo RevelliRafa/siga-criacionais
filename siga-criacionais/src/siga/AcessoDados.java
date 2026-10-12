@@ -68,5 +68,38 @@ public class AcessoDados {
         // SOLUÇÃO PROBLEMA 2 (Builder): delega a construção da consulta para o builder fluente
     public ConsultaBuilder criarConsulta(String tabela) {
         return new ConsultaBuilder(tabela);
+        package siga;
+
+public class AcessoDados {
+
+    // SOLUÇÃO PROBLEMA 3 (Singleton): atributo estático para a instância única
+    private static AcessoDados instancia;
+
+    // Construtor privado impede instanciação externa direta
+    private AcessoDados() {
+    }
+
+    // Método estático de acesso global à instância única
+    public static synchronized AcessoDados getInstancia() {
+        if (instancia == null) {
+            instancia = new AcessoDados();
+        }
+        return instancia;
+    }
+
+    // SOLUÇÃO PROBLEMA 1 (Abstract Factory): garante objetos da mesma família
+    public void conectar(FabricaBanco fabrica) {
+        Conexao conexao = fabrica.criarConexao();
+        Comando comando = fabrica.criarComando();
+
+        conexao.abrir();
+        comando.executar("SELECT * FROM aluno");
+    }
+
+    // SOLUÇÃO PROBLEMA 2 (Builder): delega a construção da consulta para o builder fluente
+    public ConsultaBuilder criarConsulta(String tabela) {
+        return new ConsultaBuilder(tabela);
+    }
+}
     }
     }
